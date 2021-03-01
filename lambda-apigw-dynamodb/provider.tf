@@ -6,6 +6,9 @@ terraform {
     null = {
       source = "hashicorp/null"
     }
+    archive = {
+      source = "hashicorp/archive"
+    }
   }
 }
 

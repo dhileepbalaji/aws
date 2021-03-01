@@ -3,9 +3,10 @@ resource "aws_lambda_function" "getallusers" {
   function_name = "getallusers"
   memory_size   = 256
   package_type  = "Zip"
-  filename      = "userdetails.zip"
+  filename      = "functions/userdetails.zip"
+  source_code_hash = data.archive_file.lambda_code.output_base64sha256
   role          = aws_iam_role.role_for_Lambda.arn
-  handler       = "getuser.list"
+  handler       = "userdetails.list"
   runtime       = "nodejs12.x"
   environment {
     variables = {
@@ -35,9 +36,10 @@ resource "aws_lambda_function" "getuser" {
   function_name = "getuser"
   memory_size   = 256
   package_type  = "Zip"
-  filename      = "userdetails.zip"
+  filename      = "functions/userdetails.zip"
+  source_code_hash = data.archive_file.lambda_code.output_base64sha256
   role          = aws_iam_role.role_for_Lambda.arn
-  handler       = "getuser.get"
+  handler       = "userdetails.get"
   runtime       = "nodejs12.x"
   environment {
     variables = {
