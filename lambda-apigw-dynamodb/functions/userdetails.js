@@ -29,11 +29,11 @@ exports.list = (event, context, callback) => {
 
 
 exports.get = (event, context, callback) => {
-    console.log("Receieved request to get user details. Userid is",event.id)
+    console.log("Receieved request to get user details. Userid is",event.pathParameters.userid)
     const params = {
         TableName: process.env.USER_TABLE,
         Key: {
-            UserId: parseInt(event.id)
+            UserId: parseInt(event.pathParameters.userid)
         },
     };
     dynamoDb.get(params)
@@ -42,7 +42,7 @@ exports.get = (event, context, callback) => {
             callback(null, successResponseBuilder(JSON.stringify(result.Item)));
         })
         .catch(error => {
-            console.error(error);
+            console.error("failed to find user",event.pathParameters.userid);
             callback(new Error('Couldn\'t fetch user.'));
             return;
         });
