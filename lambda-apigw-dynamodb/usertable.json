@@ -1,0 +1,88 @@
+{
+    "Usertable": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "UserId": {
+                        "N": "1"
+                    },
+                    "Details": { 
+                        "M": { "Firstname": { "S": "Test"},
+                               "Lastname": { "S": "User1"}
+                            } 
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "UserId": {
+                        "N": "2"
+                    },
+                    "Details": { 
+                        "M": { "Firstname": { "S": "Test"},
+                               "Lastname": { "S": "User2"}
+                            } 
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "UserId": {
+                        "N": "3"
+                    },
+                    "Details": { 
+                        "M": { "Firstname": { "S": "Test"},
+                               "Lastname": { "S": "User3"}
+                            } 
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "UserId": {
+                        "N": "4"
+                    },
+                    "Details": { 
+                        "M": { "Firstname": { "S": "Test"},
+                               "Lastname": { "S": "User4"}
+                            } 
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "UserId": {
+                        "N": "5"
+                    },
+                    "Details": { 
+                        "M": { "Firstname": { "S": "Test"},
+                               "Lastname": { "S": "User5"}
+                            } 
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "UserId": {
+                        "N": "6"
+                    },
+                    "Details": { 
+                        "M": { "Firstname": { "S": "Test"},
+                               "Lastname": { "S": "User6"}
+                            } 
+                    }
+                }
+            }
+        }
+    ]
+}
