@@ -1,0 +1,27 @@
+projects:
+  team1:
+    paths:
+      - team1/           # ending slash is mandatory. To avoid matching filenames.
+      - artifacts/team1/
+      - raw/team1/
+      - stage/team1/
+      - pre-stage/team1/
+      - post-stage/team1/
+      - analytics/team1/
+      - athena/team1/
+    tags:
+      "tc:Application": team1-DATALAKE
+      "tc:Projectid": 1234567
+  team2:
+    paths:
+      - team2/      # ending slash is mandatory. To avoid matching filenames.
+      - artifacts/team2/
+      - raw/team2/
+      - stage/team2/
+      - pre-stage/team2/
+      - post-stage/team2/
+      - analytics/team2/
+      - athena/team2/
+    tags:
+      "tc:Application": team2-DATALAKE
+      "tc:Projectid":
