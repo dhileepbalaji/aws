@@ -3,11 +3,11 @@ Transform: AWS::Serverless-2016-10-31
 Description: Upload an object to an S3 bucket, triggering a Lambda event, returning the object key as a Stack Output.
 Parameters:
   pBucketName:
-    Default: test999
+    Default: dhileeptest999
     Description: S3 Bucket name
     Type: String
   pBucketName1:
-    Default: test9999
+    Default: dhileeptest9999
     Description: S3 Bucket name
     Type: String
   pFunctionName:
@@ -69,7 +69,7 @@ Resources:
           Statement:
             - Effect: Allow
               Action: logs:CreateLogGroup
-              Resource: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+              Resource: !Sub  arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
             - Effect: Allow
               Action:
                 - logs:CreateLogStream
@@ -91,8 +91,11 @@ Resources:
                 - !Sub "arn:aws:s3:::*"
             - Effect: Allow
               Action:
-                - 'ssm:ListTagsForResource'
                 - 'ssm:GetParameter*'
+                - 'ssm:ListTagsForResource'
               Resource:
                 - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${pTeamKMSssm}
                 - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${pTeamS3ssm}
+                - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${pTeamKMSssm}/*
+                - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${pTeamS3ssm}/*
+

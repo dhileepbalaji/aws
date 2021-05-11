@@ -17,8 +17,8 @@ def put_get_tags(boto_context, bucket, s3object, tag_set):
     except Exception as e:
         print('put tags %s failed' % e)
         return -1
-    response = boto_context.get_object_tagging(Bucket=bucket, Key=unquote_plus(s3object))
-    print('get tags returned %s' % response)
+    #response = boto_context.get_object_tagging(Bucket=bucket, Key=unquote_plus(s3object))
+    #print('get tags returned %s' % response)
     print('Tagging Completed Successfully')
     return 0
 
