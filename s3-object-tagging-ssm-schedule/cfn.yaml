@@ -1,0 +1,98 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Upload an object to an S3 bucket, triggering a Lambda event, returning the object key as a Stack Output.
+Parameters:
+  pBucketName:
+    Default: test999
+    Description: S3 Bucket name
+    Type: String
+  pBucketName1:
+    Default: test9999
+    Description: S3 Bucket name
+    Type: String
+  pFunctionName:
+    Default: SDLF-Foundations-S3TagObjects
+    Description: S3 Bucket name
+    Type: String
+  pTeamKMSssm:
+    Description: SSM path for tags reference
+    Default: SDLF/KMS
+    Type: String
+  pTeamS3ssm:
+    Description: SSM path for tags reference
+    Default: SDLF/S3
+    Type: String
+Resources:
+  Bucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref pBucketName
+  Bucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref pBucketName1
+  s3ObjectTagger:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Ref pFunctionName
+      Description: Tags S3 Objects when its created
+      Handler: main.lambda_handler
+      MemorySize: 128
+      Role: !GetAtt LambdaExecutionRole.Arn
+      CodeUri: ./lambda/s3ObjectTagger/src
+      Timeout: 30
+      Runtime: python3.8
+      Events:
+        ScheduledEvent:
+          Type: Schedule
+          Properties:
+            # https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-expressions.html
+            Schedule: cron(0 7 ? * SUN *)
+            Description: Lambda Trigger for Every Sunday 7 AM
+            Enabled: True
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal: {Service: [lambda.amazonaws.com]}
+          Action: ['sts:AssumeRole']
+      Path: /
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      Policies:
+      - PolicyName: S3taggerPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: logs:CreateLogGroup
+              Resource: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource:
+                - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${pFunctionName}:*
+            - Effect: Allow
+              Action:
+                - 's3:GetBucketLocation'
+                - 's3:ListBucket'
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - 's3:GetObject'
+                - 's3:GetObjectTagging'
+                - 's3:PutObjectTagging'
+                - 's3:ListBucket'
+              Resource:
+                - !Sub "arn:aws:s3:::*"
+            - Effect: Allow
+              Action:
+                - 'ssm:ListTagsForResource'
+                - 'ssm:GetParameter*'
+              Resource:
+                - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${pTeamKMSssm}
+                - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${pTeamS3ssm}
