@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Upload an object to an S3 bucket, triggering a Lambda event, returning the object key as a Stack Output.
+Parameters:
+  BucketName:
+    Default: dhileeptest999
+    Description: S3 Bucket name
+    Type: String
+  BucketName1:
+    Default: dhileeptest9999
+    Description: S3 Bucket name
+    Type: String
+  FunctionName:
+    Default: SDLF-Foundations-S3TagObjects
+    Description: S3 Bucket name
+    Type: String
+Resources:
+  Bucket1:
+    Type: AWS::S3::Bucket
+    DependsOn: BucketPermission
+    Properties:
+      BucketName: !Ref BucketName
+  Bucket2:
+    Type: AWS::S3::Bucket
+    DependsOn: BucketPermission
+    Properties:
+      BucketName: !Ref BucketName1
+  s3ObjectTagger:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Ref FunctionName
+      Description: Tags S3 Objects when its created
+      Handler: main.lambda_handler
+      MemorySize: 128
+      Role: !GetAtt LambdaExecutionRole.Arn
+      CodeUri: ./lambda/s3ObjectTagger/src
+      Timeout: 30
+      Runtime: python3.8
+      Events:
+        Bucket1NewObjectEvent:
+          Type: S3
+          Properties:
+            Bucket: !Ref Bucket1
+            Events: 's3:ObjectCreated:*'
+        Bucket2NewObjectEvent:
+          Type: S3
+          Properties:
+            Bucket: !Ref Bucket2
+            Events: 's3:ObjectCreated:*'
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal: {Service: [lambda.amazonaws.com]}
+          Action: ['sts:AssumeRole']
+      Path: /
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      Policies:
+      - PolicyName: S3taggerPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: logs:CreateLogGroup
+              Resource: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource: 
+                !Sub
+                  - 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${FunctionName}:*'
+                  - FunctionName: !Ref FunctionName 
+            - Effect: Allow
+              Action:
+                - 's3:GetBucketLocation'
+                - 's3:ListBucket'
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - 's3:GetObject'
+                - 's3:GetObjectTagging'
+                - 's3:PutObjectTagging'
+              Resource: 
+                - !Sub "arn:aws:s3:::${BucketName}/*"
+                - !Sub "arn:aws:s3:::${BucketName1}/*"
+
+  BucketPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn: s3ObjectTagger
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName: !Ref FunctionName
+      Principal: s3.amazonaws.com
+      SourceAccount: !Ref "AWS::AccountId"

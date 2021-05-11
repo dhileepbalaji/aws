@@ -1,0 +1,7 @@
+boto3==1.17.55
+botocore==1.20.55
+jmespath==0.10.0
+python-dateutil==2.8.1
+PyYAML==5.4.1 # download and keep inthis folder, rest are by default available in lambda env
+s3transfer==0.4.1
+six==1.15.0
