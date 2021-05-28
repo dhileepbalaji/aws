@@ -19,7 +19,7 @@ EOF
 }
 resource "aws_iam_instance_profile" "eb-ec2-role" {
     name = "eb-ec2-role"
-    roles = ["${aws_iam_role.eb-ec2-role.name}"]
+    roles = [aws_iam_role.eb-ec2-role.name]
 }
 
 # service
@@ -45,16 +45,16 @@ EOF
 # policies
 resource "aws_iam_policy_attachment" "eb-attach1" {
     name = "eb-attach1"
-    roles = ["${aws_iam_role.eb-ec2-role.name}"]
+    roles = [aws_iam_role.eb-ec2-role.name]
     policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
 }
 resource "aws_iam_policy_attachment" "eb-attach2" {
     name = "eb-attach2"
-    roles = ["${aws_iam_role.eb-ec2-role.name}"]
+    roles = [aws_iam_role.eb-ec2-role.name]
     policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
 resource "aws_iam_policy_attachment" "eb-attach3" {
     name = "eb-attach3"
-    roles = ["${aws_iam_role.elasticbeanstalk-service-role.name}"]
+    roles = [aws_iam_role.elasticbeanstalk-service-role.name]
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
 }

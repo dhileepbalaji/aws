@@ -1,13 +1,13 @@
 resource "aws_db_subnet_group" "rds-eb" {
     name = "rds-app-prod"
     description = "RDS subnet group"
-    subnet_ids = ["${aws_subnet.private-1.id}", "${aws_subnet.private-2.id}"]
+    subnet_ids = [aws_subnet.private-1.id, aws_subnet.private-2.id]
 }
 
 # Security group resources
 #
 resource "aws_security_group" "postgresql" {
-  vpc_id = var.vpc_id
+  vpc_id = aws_vpc.main.id
 
   tags = merge(
     {

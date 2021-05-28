@@ -7,7 +7,7 @@ resource "aws_key_pair" "eb" {
 
 # sec group
 resource "aws_security_group" "eb" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
   name = "eb-prod"
   description = "eb prod security group"
   egress {
@@ -29,18 +29,18 @@ resource "aws_elastic_beanstalk_eblication" "eb" {
 }
 resource "aws_elastic_beanstalk_environment" "eb-prod" {
   name = "eb-prod"
-  eblication = "${aws_elastic_beanstalk_eblication.eb.name}"
+  eblication = aws_elastic_beanstalk_eblication.eb.name
   solution_stack_name = "Node.js 14 AL2 version 5.3.2"
   cname_prefix = "eb-prod-a2b6d0"
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
-    value     = "${aws_vpc.main.id}"
+    value     = aws_vpc.main.id
   }
   setting {
     namespace = "aws:ec2:vpc"
     name = "Subnets"
-    value = "${aws_subnet.private-1.id},${aws_subnet.private-2.id}"
+    value = aws_subnet.private-1.id,aws_subnet.private-2.id
   }
   setting {
     namespace = "aws:ec2:vpc"
@@ -55,12 +55,12 @@ resource "aws_elastic_beanstalk_environment" "eb-prod" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name = "SecurityGroups"
-    value = "${aws_security_group.eb.id}"
+    value = aws_security_group.eb.id
   }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name = "EC2KeyName"
-    value = "${aws_key_pair.eb.id}"
+    value = aws_key_pair.eb.id
   }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
@@ -80,7 +80,7 @@ resource "aws_elastic_beanstalk_environment" "eb-prod" {
   setting {
     namespace = "aws:ec2:vpc"
     name = "ELBSubnets"
-    value = "${aws_subnet.public-1.id},${aws_subnet.public-2.id}"
+    value = aws_subnet.public-1.id,aws_subnet.public-2.id
   }
   setting {
     namespace = "aws:elb:loadbalancer"
@@ -115,22 +115,21 @@ resource "aws_elastic_beanstalk_environment" "eb-prod" {
   setting {
     namespace = "aws:elasticbeanstalk:eblication:environment"
     name = "RDS_USERNAME"
-    value = "${aws_db_instance.postgresql.username}"
+    value = aws_db_instance.postgresql.username
   }
   setting {
     namespace = "aws:elasticbeanstalk:eblication:environment"
     name = "RDS_PASSWORD"
-    value = "${aws_db_instance.postgresql.password}"
+    value = aws_db_instance.postgresql.password
   }
   setting {
     namespace = "aws:elasticbeanstalk:eblication:environment"
     name = "RDS_DATABASE"
-    value = "mydb"
-    value = "${aws_db_instance.postgresql.name}"
+    value = aws_db_instance.postgresql.name
   }
   setting {
     namespace = "aws:elasticbeanstalk:eblication:environment"
     name = "RDS_HOSTNAME"
-    value = "${aws_db_instance.postgresql.endpoint}"
+    value = aws_db_instance.postgresql.endpoint
   }
 }

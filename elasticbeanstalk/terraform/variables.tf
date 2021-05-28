@@ -40,11 +40,6 @@ variable "iops" {
   description = "The amount of provisioned IOPS"
 }
 
-variable "vpc_id" {
-  type        = string
-  description = "ID of VPC meant to house database"
-}
-
 variable "database_identifier" {
   type        = string
   description = "Identifier for RDS instance"
@@ -143,11 +138,6 @@ variable "cloudwatch_logs_exports" {
   default     = ["postgresql", "upgrade"]
   type        = list
   description = "List of logs to publish to CloudWatch Logs"
-}
-
-variable "subnet_group" {
-  type        = string
-  description = "Database subnet group"
 }
 
 variable "parameter_group" {
