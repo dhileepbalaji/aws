@@ -141,7 +141,7 @@ variable "cloudwatch_logs_exports" {
 }
 
 variable "parameter_group" {
-  default     = "default.postgres11"
+  default     = "default.postgres13"
   type        = string
   description = "Database engine parameter group"
 }
