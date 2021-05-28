@@ -18,3 +18,4 @@ deletion_protection = true
 cloudwatch_logs_exports = ["postgresql"]
 project = "test"
 environment = "Staging"
+publicly_accessible = true

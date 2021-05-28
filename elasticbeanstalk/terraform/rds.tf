@@ -40,6 +40,7 @@ resource "aws_db_instance" "postgresql" {
   name                            = var.database_name
   password                        = var.database_password
   username                        = var.database_username
+  publicly_accessible             = var.publicly_accessible
   backup_retention_period         = var.backup_retention_period
   backup_window                   = var.backup_window
   maintenance_window              = var.maintenance_window

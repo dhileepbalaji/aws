@@ -140,6 +140,11 @@ variable "cloudwatch_logs_exports" {
   description = "List of logs to publish to CloudWatch Logs"
 }
 
+
+variable "publicly_accessible" {
+  default     = false
+}
+
 variable "parameter_group" {
   default     = "default.postgres13"
   type        = string
