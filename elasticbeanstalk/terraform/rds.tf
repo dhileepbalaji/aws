@@ -61,3 +61,17 @@ resource "aws_db_instance" "postgresql" {
 }
 
 
+
+resource "null_resource" "initial_setup" {
+
+  # runs after database and security group providing external access is created
+  depends_on = [aws_db_instance.postgresql, aws_security_group.postgresql]
+
+    provisioner "local-exec" {
+        command = "psql -h aws_db_instance.postgresql.hostname -p 5432 -U \"${aws_db_instance.postgresql.username}\" -d aws_db_instance.postgresql.name -f \"../src/testdb.sql\""
+        environment {
+          # for instance, postgres would need the password here:
+          PGPASSWORD = aws_db_instance.postgresql.password
+        }
+    }
+}
