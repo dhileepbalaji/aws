@@ -1,0 +1,19 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+DROP DATABASE IF EXISTS testdb;
+CREATE DATABASE testdb;
+
+\c testdb;
+
+CREATE TABLE table1 (
+  ID SERIAL PRIMARY KEY,
+  name TEXT ,
+  ssn TEXT ,
+  age TEXT ,
+);
+
+INSERT INTO table1 (name,ssn, age) VALUES (
+    PGP_SYM_ENCRYPT('testuser','ENCRYPTION_AES_KEY'),
+    PGP_SYM_ENCRYPT('1234567', 'ENCRYPTION_AES_KEY'),
+    PGP_SYM_ENCRYPT('30', 'ENCRYPTION_AES_KEY')
+);
