@@ -8,7 +8,13 @@ resource "aws_db_subnet_group" "rds-eb" {
 #
 resource "aws_security_group" "postgresql" {
   vpc_id = aws_vpc.main.id
-
+  ingress {
+    description      = "RDS connection from anywhere"
+    from_port        = 5432
+    to_port          = 5432
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
   tags = merge(
     {
       Name        = "sgDatabaseServer",
