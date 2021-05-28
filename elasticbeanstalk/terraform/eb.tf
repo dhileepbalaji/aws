@@ -133,5 +133,5 @@ resource "aws_elastic_beanstalk_environment" "eb-prod" {
     value = aws_db_instance.postgresql.endpoint
   }
 
-  depends_on [aws_vpc.main,aws_security_group.eb,aws_db_instance.postgresql]
+  depends_on = [aws_vpc.main,aws_security_group.eb,aws_db_instance.postgresql]
 }
