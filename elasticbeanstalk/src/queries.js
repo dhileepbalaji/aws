@@ -18,7 +18,7 @@ var pgp = require('pg-promise')(options);
 var db = pgp(databaseConfig);
 
 function getAllUsers(req, res, next) {
-  db.any('select PGP_SYM_DECRYPT(name::bytea, "AES_KEY") as name,PGP_SYM_DECRYPT(ssn::bytea, "AES_KEY") as ssn from table1')
+  db.any('select PGP_SYM_DECRYPT(name::bytea, \'ENCRYPTION_AES_KEY\') as name,PGP_SYM_DECRYPT(ssn::bytea,  \'ENCRYPTION_AES_KEY\') as ssn from table1')
     .then(function (data) {
       res.status(200)
         .json({
@@ -34,7 +34,7 @@ function getAllUsers(req, res, next) {
 
 function getSingleUser(req, res, next) {
   var userID = parseInt(req.params.id);
-  db.one('select PGP_SYM_DECRYPT(name::bytea, "AES_KEY") as name,PGP_SYM_DECRYPT(ssn::bytea, "AES_KEY") as ssn from table1 where id = $1', userID)
+  db.one('select PGP_SYM_DECRYPT(name::bytea,  \'ENCRYPTION_AES_KEY\') as name,PGP_SYM_DECRYPT(ssn::bytea,  \'ENCRYPTION_AES_KEY\') as ssn from table1 where id = $1', userID)
     .then(function (data) {
       res.status(200)
         .json({

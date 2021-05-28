@@ -9,7 +9,7 @@ CREATE TABLE table1 (
   ID SERIAL PRIMARY KEY,
   name TEXT ,
   ssn TEXT ,
-  age TEXT ,
+  age TEXT 
 );
 
 INSERT INTO table1 (name,ssn, age) VALUES (

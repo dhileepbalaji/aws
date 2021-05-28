@@ -130,7 +130,7 @@ resource "aws_elastic_beanstalk_environment" "eb-prod" {
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name = "RDS_HOSTNAME"
-    value = aws_db_instance.postgresql.endpoint
+    value = element(split(":", aws_db_instance.postgresql.endpoint),0)
   }
 
   depends_on = [aws_vpc.main,aws_security_group.eb,aws_db_instance.postgresql]
