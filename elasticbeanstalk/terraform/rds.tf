@@ -59,3 +59,5 @@ resource "aws_db_instance" "postgresql" {
     var.tags
   )
 }
+
+
