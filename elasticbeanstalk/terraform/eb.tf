@@ -23,7 +23,7 @@ resource "aws_security_group" "eb" {
 
 # eb
 
-resource "aws_elastic_beanstalk_eblication" "eb" {
+resource "aws_elastic_beanstalk_application" "eb" {
   name = "eb"
   description = "eb"
 }

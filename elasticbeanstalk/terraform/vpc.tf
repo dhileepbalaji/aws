@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
     enable_dns_support = "true"
     enable_dns_hostnames = "true"
     enable_classiclink = "false"
-    tags {
+    tags = {
         Name = "main"
     }
 }
@@ -14,7 +14,7 @@ resource "aws_vpc" "main" {
 resource "aws_internet_gateway" "main-gw" {
     vpc_id = aws_vpc.main.id
 
-    tags {
+    tags = {
         Name = "main"
     }
 }
@@ -27,7 +27,7 @@ resource "aws_route_table" "public" {
         gateway_id = aws_internet_gateway.main-gw.id
     }
 
-    tags {
+    tags = {
         Name = "public-1"
     }
 }
@@ -39,7 +39,7 @@ resource "aws_subnet" "public-1" {
     map_public_ip_on_launch = "true"
     availability_zone = "eu-west-1a"
 
-    tags {
+    tags = {
         Name = "public-1"
     }
 }
@@ -49,7 +49,7 @@ resource "aws_subnet" "public-2" {
     map_public_ip_on_launch = "true"
     availability_zone = "eu-west-1b"
 
-    tags {
+    tags = {
         Name = "public-2"
     }
 }
@@ -59,7 +59,7 @@ resource "aws_subnet" "public-3" {
     map_public_ip_on_launch = "true"
     availability_zone = "eu-west-1c"
 
-    tags {
+    tags = {
         Name = "public-3"
     }
 }
@@ -69,7 +69,7 @@ resource "aws_subnet" "private-1" {
     map_public_ip_on_launch = "false"
     availability_zone = "eu-west-1a"
 
-    tags {
+    tags = {
         Name = "private-1"
     }
 }
@@ -79,7 +79,7 @@ resource "aws_subnet" "private-2" {
     map_public_ip_on_launch = "false"
     availability_zone = "eu-west-1b"
 
-    tags {
+    tags = {
         Name = "private-2"
     }
 }
@@ -89,7 +89,7 @@ resource "aws_subnet" "private-3" {
     map_public_ip_on_launch = "false"
     availability_zone = "eu-west-1c"
 
-    tags {
+    tags = {
         Name = "private-3"
     }
 }
@@ -126,7 +126,7 @@ resource "aws_route_table" "private" {
         nat_gateway_id = aws_nat_gateway.nat-gw.id
     }
 
-    tags {
+    tags = {
         Name = "private-1"
     }
 }
