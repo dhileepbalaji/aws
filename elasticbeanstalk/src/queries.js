@@ -28,7 +28,7 @@ function getAllUsers(req, res, next) {
         });
     })
     .catch(function (err) {
-      return next(err);
+      return next("Faied to execute DB Query");
     });
 }
 
@@ -44,7 +44,7 @@ function getSingleUser(req, res, next) {
         });
     })
     .catch(function (err) {
-      return next(err);
+      return next("Faied to execute DB Query");
     });
 }
 
