@@ -5,9 +5,17 @@ var options = {
   promiseLib: promise
 };
 
+const databaseConfig= {
+  "host": process.env.RDS_HOSTNAME,
+  "port": 5432,
+  "database": process.env.RDS_DATABASE,
+  "user": process.env.RDS_USERNAME,
+  "password": process.env.RDS_PASSWORD
+};
+
 var pgp = require('pg-promise')(options);
 //var connectionString = 'postgres://localhost:5432/testdb';
-var db = pgp(connectionString);
+var db = pgp(databaseConfig);
 
 function getAllUsers(req, res, next) {
   db.any('select PGP_SYM_DECRYPT(name::bytea, "AES_KEY") as name,PGP_SYM_DECRYPT(ssn::bytea, "AES_KEY") as ssn from table1')
