@@ -132,4 +132,6 @@ resource "aws_elastic_beanstalk_environment" "eb-prod" {
     name = "RDS_HOSTNAME"
     value = aws_db_instance.postgresql.endpoint
   }
+
+  depends_on [aws_vpc.main,aws_security_group.eb,aws_db_instance.postgresql]
 }
