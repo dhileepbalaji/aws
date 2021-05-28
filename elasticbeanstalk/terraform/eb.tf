@@ -30,7 +30,7 @@ resource "aws_elastic_beanstalk_application" "eb" {
 resource "aws_elastic_beanstalk_environment" "eb-prod" {
   name = "eb-prod"
   application = aws_elastic_beanstalk_application.eb.name
-  solution_stack_name = "Node.js 14 AL2 version 5.3.2"
+  solution_stack_name = "Node.js 14 AL2 version 5.3.2 64bit Amazon"
   cname_prefix = "eb-prod-a2b6d0"
   setting {
     namespace = "aws:ec2:vpc"
