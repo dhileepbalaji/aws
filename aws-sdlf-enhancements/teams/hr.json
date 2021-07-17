@@ -1,0 +1,58 @@
+{
+  "dev": [
+    {
+      "ParameterKey": "pTeamName",
+      "ParameterValue": "hr"
+    },
+    {
+      "ParameterKey": "pDatalakeLibraryRepositoryName",
+      "ParameterValue": "sdlf-hr-datalakeLibrary"
+    },
+    {
+      "ParameterKey": "pPipLibrariesRepositoryName",
+      "ParameterValue": "sdlf-hr-pipLibrary"
+    },
+    {
+      "ParameterKey": "pLibrariesBranchName",
+      "ParameterValue": "dev"
+    },
+    {
+      "ParameterKey": "pSNSNotificationsEmail",
+      "ParameterValue": "nobody@amazon.com"
+    }
+  ],
+  "prod": [
+    {
+      "ParameterKey": "pTeamName",
+      "ParameterValue": "hr"
+    },
+    {
+      "ParameterKey": "pDatalakeLibraryRepositoryName",
+      "ParameterValue": "sdlf-hr-datalakeLibrary"
+    },
+    {
+      "ParameterKey": "pPipLibrariesRepositoryName",
+      "ParameterValue": "sdlf-hr-pipLibrary"
+    },
+    {
+      "ParameterKey": "pLibrariesBranchName",
+      "ParameterValue": "dev"
+    },
+    {
+      "ParameterKey": "pSNSNotificationsEmail",
+      "ParameterValue": "nobody@amazon.com"
+    }
+  ],
+  "tags": [
+    {
+      "ParameterKey": "pTeamName",
+      "ParameterValue": "hr"
+    }
+  ],
+  "metadata": [
+    {
+      "ParameterKey": "pTeamName",
+      "ParameterValue": "hr"
+    }
+  ]
+}
