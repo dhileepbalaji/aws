@@ -1,0 +1,39 @@
+{
+    "DomainName": "__ES_DOMAIN_NAME__",
+    "ElasticsearchVersion": "__ES_VERSION__",
+    "ElasticsearchClusterConfig": {
+        "InstanceType": "__ES_INSTANCE_TYPE__",
+        "InstanceCount": 1,
+            "DedicatedMasterEnabled": false,
+            "ZoneAwarenessEnabled": false,
+            "WarmEnabled": false
+        },
+    "EBSOptions": {
+        "EBSEnabled": true,
+        "VolumeType": "gp2",
+        "VolumeSize": 100
+    },
+    "AccessPolicies":  "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:ESHttp*\",\"Resource\":\"arn:aws:es:__AWS_REGION__:__ACCOUNT_ID__:domain/__ES_DOMAIN_NAME__/*\"}]}",
+    "SnapshotOptions": {},
+    "CognitoOptions": {
+        "Enabled": false
+    },
+    "EncryptionAtRestOptions": {
+        "Enabled": true
+    },
+    "NodeToNodeEncryptionOptions": {
+        "Enabled": true
+    },
+    "DomainEndpointOptions": {
+        "EnforceHTTPS": true,
+        "TLSSecurityPolicy": "Policy-Min-TLS-1-0-2019-07"
+    },
+    "AdvancedSecurityOptions": {
+        "Enabled": true,
+        "InternalUserDatabaseEnabled": true,
+        "MasterUserOptions": {
+            "MasterUserName": "__ES_DOMAIN_USER__",
+            "MasterUserPassword": "__ES_DOMAIN_PASSWORD__"
+        }
+    }
+}
